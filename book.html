@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Book Pooja • Pooja Sampanna</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <div class="logo"><span>🪔</span></div>
+        <div class="brand-title"><b>Pooja Sampanna</b><small>Pooja • Samagri • Booking</small></div>
+      </a>
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a href="poojas.html">All Poojas</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a class="cta" href="book.html">Book Now</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container section">
+    <div class="card panel">
+      <h2 style="margin:0 0 8px">Book a Pooja</h2>
+      <div class="muted">Fill details — it will save into MySQL and show in “All Bookings”.</div>
+      <div class="hr"></div>
+
+      <form id="bookingForm" class="form">
+        <div class="row2">
+          <input id="name" placeholder="Your Name *" required>
+          <input id="email" type="email" placeholder="Email *" required>
+        </div>
+
+        <input id="poojaName" placeholder="Pooja Name * (auto-filled)" required>
+
+        <div class="row2">
+          <input id="date" type="date" required>
+          <input id="time" type="time" required>
+        </div>
+
+        <input id="address" placeholder="Address (optional)">
+        <textarea id="message" placeholder="Message / Special request (optional)"></textarea>
+
+        <div class="btnrow">
+          <button class="btn primary" type="submit">Submit Booking</button>
+          <a class="btn" href="bookings.html">View Bookings</a>
+          <a class="btn" href="index.html">Home</a>
+        </div>
+
+        <div class="note">
+          If booking doesn’t save, you are opening via Live Server. Use:
+          <b>http://localhost/PoojaSampanna/public/index.html</b>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

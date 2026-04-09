@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Samagri Shop - Pooja Sampanna</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="logo">PS</div>
+      <div class="brand-title">
+        <b>Pooja Sampanna</b>
+        <small>Pooja • Samagri • Booking</small>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a class="nav-link" data-nav href="index.html">Home</a>
+      <a class="nav-link" data-nav href="poojas.html">Poojas</a>
+      <a class="nav-link active" data-nav href="samagri.html">Samagri</a>
+      <a class="nav-link" data-nav href="book-pandit.html">Book Pandit</a>
+    </nav>
+
+    <div class="nav-right">
+      <a class="cart-pill" href="samagri.html">
+        🛒 Cart <span class="cart-badge" id="cartCount">0</span>
+      </a>
+      <a class="btn ghost" href="login.html">Login</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="pop-wrap">
+    <div class="pop-head">
+      <div>
+        <div class="pop-title">Samagri Shop</div>
+        <div class="pop-sub">
+          Choose your pooja and add required items to cart.
+        </div>
+      </div>
+
+      <div class="pop-actions">
+        <button class="btn ghost" id="clearCart">Clear Cart</button>
+      </div>
+    </div>
+
+    <div class="layout2">
+
+      <!-- LEFT -->
+      <div class="panel">
+        <div class="row" style="justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div style="font-weight:1000">Select Pooja</div>
+
+          <select class="select" id="poojaSelect" style="min-width:240px">
+            <option>Satyanarayan Katha</option>
+            <option>Ganesh Pooja</option>
+            <option>Lakshmi Pooja</option>
+            <option>Saraswati Pooja</option>
+            <option>Hanuman Pooja</option>
+            <option>Shiv Pooja</option>
+            <option>Vastu Shanti</option>
+          </select>
+        </div>
+
+        <div class="muted" style="margin-top:10px">
+          Tip: Add items — same item again will increase quantity.
+        </div>
+
+        <div class="list" id="samagriList" style="margin-top:15px">
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="panel sticky">
+        <h3 style="margin:0;font-weight:1000">Order Summary</h3>
+        <div class="muted" style="margin-top:6px">Manage quantity and checkout.</div>
+
+        <div id="cartSummary" style="margin-top:12px">
+        </div>
+
+        <!-- 🔥 PAYMENT BUTTON ADDED -->
+        <div style="margin-top:14px">
+          <a href="payment.html" class="btn primary" style="display:block;text-align:center;">
+            💳 Proceed to Payment
+          </a>
+        </div>
+
+        <div class="muted" style="margin-top:10px;font-size:13px">
+          Cart uses localStorage (works offline).
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="footer">© 2026 Pooja Sampanna • Final Year Project</div>
+</main>
+
+<script src="app.js"></script>
+
+<script>
+document.getElementById("clearCart")?.addEventListener("click", ()=>{
+  localStorage.removeItem("ps_cart");
+  alert("Cart cleared ✅");
+  location.reload();
+});
+</script>
+
+</body>
+</html>

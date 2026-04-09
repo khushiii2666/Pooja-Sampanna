@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment - Pooja Sampanna</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+body{
+  background: linear-gradient(135deg,#fff7ed,#fde68a);
+}
+
+.pay-container{
+  max-width: 1100px;
+  margin: 60px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.pay-left{
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.pay-right{
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+h2{
+  margin-bottom: 20px;
+}
+
+input{
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.btn-pay{
+  width: 100%;
+  padding: 14px;
+  background: #f97316;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-pay:hover{
+  background: #ea580c;
+}
+
+.summary{
+  margin-top: 20px;
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  margin:8px 0;
+}
+
+.total{
+  font-weight:bold;
+  margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="pay-container">
+
+  <!-- LEFT SIDE (FORM) -->
+  <div class="pay-left">
+    <h2>🪔 Payment Details</h2>
+
+    <form id="payForm">
+      <input type="text" placeholder="Full Name" required>
+      <input type="text" placeholder="Card Number" required>
+      <input type="month" required>
+      <input type="password" placeholder="CVV" required>
+
+      <button class="btn-pay" type="submit">Pay Now</button>
+    </form>
+
+    <h3 style="margin-top:20px;">OR Pay via UPI</h3>
+    <button class="btn-pay" onclick="upi()">Pay via UPI</button>
+  </div>
+
+  <!-- RIGHT SIDE (SUMMARY) -->
+  <div class="pay-right">
+    <h2>Order Summary</h2>
+
+    <div class="summary" id="summaryBox"></div>
+
+    <div class="total" id="totalAmount">Total: ₹0</div>
+  </div>
+
+</div>
+
+<script>
+// Load cart data
+function loadCart(){
+  return JSON.parse(localStorage.getItem("ps_cart") || "[]");
+}
+
+function renderSummary(){
+  const cart = loadCart();
+  const box = document.getElementById("summaryBox");
+  let total = 0;
+
+  box.innerHTML = cart.map(item=>{
+    total += item.price;
+    return `
+      <div class="item">
+        <span>${item.name}</span>
+        <span>₹${item.price}</span>
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("totalAmount").innerText = "Total: ₹" + total;
+}
+
+renderSummary();
+
+// Payment submit
+document.getElementById("payForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  alert("✅ Payment Successful");
+  localStorage.removeItem("ps_cart");
+  window.location.href = "success.html";
+});
+
+// UPI
+function upi(){
+  alert("Redirecting to UPI (Demo)");
+}
+</script>
+
+</body>
+</html>

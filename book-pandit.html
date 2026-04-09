@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book Pandit - Pooja Sampanna</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="logo">PS</div>
+      <div class="brand-title">
+        <b>Pooja Sampanna</b>
+        <small>Pooja • Samagri • Booking</small>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a class="nav-link" data-nav href="index.html">Home</a>
+      <a class="nav-link" data-nav href="poojas.html">Poojas</a>
+      <a class="nav-link" data-nav href="samagri.html">Samagri</a>
+      <a class="nav-link active" data-nav href="book-pandit.html">Book Pandit</a>
+    </nav>
+
+    <div class="nav-right">
+      <a class="cart-pill" href="samagri.html" title="Open cart">
+        🛒 Cart <span class="cart-badge" id="cartCount">0</span>
+      </a>
+      <a class="btn ghost" href="login.html">Login</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="card" style="padding:22px">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-end">
+      <div>
+        <div class="h1" style="margin:0">Book a Pandit</div>
+        <p class="muted" style="margin:6px 0 0">Connect with verified and experienced pandits for your pooja.</p>
+      </div>
+
+      <div class="search" style="min-width:260px">
+        🔍 <input id="panditSearch" placeholder="Search by name / specialty..." />
+      </div>
+    </div>
+
+    <div class="grid3" id="panditGrid" style="margin-top:18px"></div>
+  </section>
+
+  <div class="footer">© 2026 Pooja Sampanna • Final Year Project</div>
+</main>
+
+<!-- BOOKING MODAL -->
+<div class="modal" id="panditModal" style="display:none">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <b id="mPanditName">Book Pandit</b>
+        <div class="muted" id="mPanditMeta" style="margin-top:4px;font-size:13px"></div>
+      </div>
+      <button class="btn ghost" id="mClose">✕</button>
+    </div>
+
+    <form id="panditForm" class="modal-body">
+      <div class="grid2">
+        <div>
+          <label class="lbl">Your Name</label>
+          <input class="inp" id="cName" required />
+        </div>
+        <div>
+          <label class="lbl">Phone</label>
+          <input class="inp" id="cPhone" required />
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <label class="lbl">Date</label>
+          <input class="inp" id="cDate" type="date" required />
+        </div>
+        <div>
+          <label class="lbl">Time</label>
+          <input class="inp" id="cTime" type="time" required />
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <label class="lbl">Pooja</label>
+          <select class="inp" id="cPooja" required>
+            <option>Satyanarayan Katha</option>
+            <option>Ganesh Pooja</option>
+            <option>Lakshmi Pooja</option>
+            <option>Griha Pravesh</option>
+            <option>Wedding</option>
+            <option>Navgraha Shanti</option>
+          </select>
+        </div>
+        <div>
+          <label class="lbl">City</label>
+          <input class="inp" id="cCity" placeholder="Mumbai" required />
+        </div>
+      </div>
+
+      <div>
+        <label class="lbl">Address</label>
+        <textarea class="inp" id="cAddr" rows="2" required></textarea>
+      </div>
+
+      <button class="btn primary" type="submit" style="width:100%;margin-top:10px">✅ Confirm Booking</button>
+      <div class="muted" style="margin-top:8px;font-size:13px">Demo saves locally (and can be sent to PHP API if available).</div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Minimal helpers
+  const qs = (s,root=document)=> root.querySelector(s);
+  const qsa = (s,root=document)=> [...root.querySelectorAll(s)];
+  const money = n => "₹" + Number(n).toFixed(0);
+
+  // Pandit data (demo)
+  const PANDITS = [
+    {id:"ramesh", name:"Pandit Ramesh Sharma", rating:4.8, reviews:156, exp:"15 years", tags:["Satyanarayan","Griha Pravesh","Wedding"]},
+    {id:"suresh", name:"Acharya Suresh Tiwari", rating:4.9, reviews:234, exp:"20 years", tags:["Rudrabhishek","Navgraha Shanti","Kaal Sarp Dosh"]},
+    {id:"vijay",  name:"Pandit Vijay Mishra", rating:4.7, reviews:98,  exp:"10 years", tags:["Ganesh","Lakshmi","Daily Pooja"]},
+    {id:"prakash",name:"Acharya Prakash Joshi", rating:4.9, reviews:310, exp:"22 years", tags:["Wedding","Mundan","Naamkaran"]},
+  ];
+
+  // Cart badge (same key as your samagri page)
+  function getCart(){
+    try { return JSON.parse(localStorage.getItem("ps_cart")||"[]"); } catch(e){ return []; }
+  }
+  function setCartBadge(){
+    const cart = getCart();
+    const count = cart.reduce((a,i)=> a + (i.qty||1), 0);
+    const el = qs("#cartCount"); if(el) el.textContent = count;
+  }
+  setCartBadge();
+
+  // Render cards
+  const grid = qs("#panditGrid");
+  function render(list){
+    grid.innerHTML = list.map(p=>`
+      <div class="card" style="padding:16px">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="logo" style="width:44px;height:44px;font-weight:900">${p.name.split(" ")[1]?.[0]||"P"}</div>
+          <div style="flex:1">
+            <b style="font-size:18px">${p.name}</b>
+            <div class="muted" style="margin-top:3px">⭐ ${p.rating} (${p.reviews} reviews) • ⏱ ${p.exp} experience</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          ${p.tags.map(t=>`<span class="pill">${t}</span>`).join("")}
+        </div>
+
+        <button class="btn primary" style="width:100%;margin-top:12px" data-book="${p.id}">Book Now</button>
+      </div>
+    `).join("");
+  }
+  render(PANDITS);
+
+  // Search
+  qs("#panditSearch").addEventListener("input", (e)=>{
+    const q = e.target.value.toLowerCase().trim();
+    const filtered = PANDITS.filter(p =>
+      p.name.toLowerCase().includes(q) || p.tags.join(" ").toLowerCase().includes(q)
+    );
+    render(filtered);
+  });
+
+  // Modal open/close + booking
+  let activePandit = null;
+  const modal = qs("#panditModal");
+  function openModal(p){
+    activePandit = p;
+    qs("#mPanditName").textContent = p.name;
+    qs("#mPanditMeta").textContent = `⭐ ${p.rating} (${p.reviews} reviews) • ⏱ ${p.exp}`;
+    modal.style.display = "flex";
+  }
+  function closeModal(){ modal.style.display="none"; }
+  qs("#mClose").onclick = closeModal;
+  modal.addEventListener("click",(e)=>{ if(e.target === modal) closeModal(); });
+
+  document.addEventListener("click",(e)=>{
+    const id = e.target?.getAttribute?.("data-book");
+    if(!id) return;
+    const p = PANDITS.find(x=>x.id===id);
+    if(p) openModal(p);
+  });
+
+  qs("#panditForm").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const booking = {
+      pandit: activePandit?.name || "Pandit",
+      name: qs("#cName").value.trim(),
+      phone: qs("#cPhone").value.trim(),
+      date: qs("#cDate").value,
+      time: qs("#cTime").value,
+      pooja: qs("#cPooja").value,
+      city: qs("#cCity").value.trim(),
+      address: qs("#cAddr").value.trim(),
+      ts: Date.now()
+    };
+
+    // save locally
+    const list = JSON.parse(localStorage.getItem("ps_bookings") || "[]");
+    list.unshift(booking);
+    localStorage.setItem("ps_bookings", JSON.stringify(list));
+
+    // OPTIONAL: send to PHP api if exists (no harm if fails)
+    try{
+      await fetch("../api/save_booking.php", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(booking)
+      });
+    }catch(err){}
+
+    alert("✅ Booking Saved!");
+    closeModal();
+    e.target.reset();
+  });
+</script>
+
+</body>
+</html>

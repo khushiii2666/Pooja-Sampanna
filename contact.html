@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Contact & Booking - Pooja Sampanna</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">
+        <div class="logo">PS</div>
+        <div><b>Pooja Sampanna</b><small>Pooja • Samagri • Booking</small></div>
+      </a>
+      <div class="links">
+        <a data-nav class="link" href="index.html">Home</a>
+        <a data-nav class="link" href="poojas.html">All Poojas</a>
+        <a data-nav class="link" href="services.html">Services</a>
+        <a data-nav class="link" href="about.html">About</a>
+        <a data-nav class="link" href="contact.html">Contact</a>
+        <a class="btn primary" href="contact.html">Book Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container grid gap">
+    <div class="card">
+      <div class="title">Book a Pooja</div>
+      <p class="muted">Fill details and submit (saved in browser localStorage as demo).</p>
+
+      <form class="form" id="bookingForm">
+        <div class="grid form-2">
+          <div>
+            <label><b>Full Name *</b></label>
+            <input class="input" name="name" placeholder="Khushi Gupta"/>
+          </div>
+          <div>
+            <label><b>Phone *</b></label>
+            <input class="input" name="phone" placeholder="98765xxxxx"/>
+          </div>
+        </div>
+
+        <div class="grid form-2">
+          <div>
+            <label><b>Date *</b></label>
+            <input class="input" type="date" name="date"/>
+          </div>
+          <div>
+            <label><b>Select Pooja</b></label>
+            <select class="input" name="pooja" id="poojaSelect"></select>
+          </div>
+        </div>
+
+        <div>
+          <label><b>Address</b></label>
+          <input class="input" name="address" placeholder="City, Area, Full Address"/>
+        </div>
+
+        <div>
+          <label><b>Note (optional)</b></label>
+          <textarea class="input" name="note" placeholder="Any special request..."></textarea>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn primary" type="submit">Submit Booking</button>
+          <button class="btn" type="button" id="clearBookings">Clear Saved Bookings</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="title">Contact Info (Demo)</div>
+      <div class="notice">
+        <div><b>Email:</b> poojasampanna@demo.com</div>
+        <div><b>Phone:</b> +91 90000 00000</div>
+        <div><b>Location:</b> India</div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

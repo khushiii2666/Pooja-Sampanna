@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Pooja Sampanna</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="login-body">
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="logo">PS</div>
+      <div class="brand-title">
+        <b>Pooja Sampanna</b>
+        <small>Pooja • Samagri • Booking</small>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a class="nav-link" data-nav href="index.html">Home</a>
+      <a class="nav-link" data-nav href="poojas.html">Poojas</a>
+      <a class="nav-link" data-nav href="samagri.html">Samagri</a>
+      <a class="nav-link" data-nav href="book-pandit.html">Book Pandit</a>
+    </nav>
+
+    <div class="nav-right">
+      <a class="cart-pill" href="samagri.html">
+        🛒 Cart <span class="cart-badge" id="cartCount">0</span>
+      </a>
+      <a class="btn primary" href="login.html">Login</a>
+    </div>
+  </div>
+</header>
+
+<main class="login-wrap">
+  <div class="login-grid">
+    <!-- LEFT: Branding panel -->
+    <section class="login-left">
+      <div class="login-chip">✨ Final Year Project • Working Website</div>
+      <h1 class="login-title">Welcome Back</h1>
+      <p class="login-sub">
+        Login to manage bookings, save samagri list and continue guided pooja with audio steps.
+      </p>
+
+      <div class="login-bullets">
+        <div class="lb"><span>✅</span><div><b>Audio Guidance</b><small>Hindi/English step audio</small></div></div>
+        <div class="lb"><span>✅</span><div><b>Samagri Checklist</b><small>Add items to cart</small></div></div>
+        <div class="lb"><span>✅</span><div><b>Booking</b><small>Store booking locally (demo)</small></div></div>
+      </div>
+
+      <div class="login-glow"></div>
+    </section>
+
+    <!-- RIGHT: Login card -->
+    <section class="login-card">
+      <div class="lc-head">
+        <div class="lc-badge">🔐 Secure Login</div>
+        <h2>Login</h2>
+        <p>Use email/phone + password (demo login saves locally).</p>
+      </div>
+
+      <form id="loginForm" class="lc-form">
+        <label class="lc-label">Email / Phone</label>
+        <input class="lc-input" type="text" id="loginUser" placeholder="example@gmail.com or 98xxxxxxx" required />
+
+        <label class="lc-label">Password</label>
+        <div class="lc-pass">
+          <input class="lc-input" type="password" id="loginPass" placeholder="Enter password" required />
+          <button type="button" class="lc-eye" id="togglePass" aria-label="Show password">👁</button>
+        </div>
+
+        <div class="lc-row">
+          <label class="lc-check">
+            <input type="checkbox" id="rememberMe" />
+            <span>Remember me</span>
+          </label>
+          <a class="lc-link" href="#" onclick="alert('Demo: feature optional');return false;">Forgot password?</a>
+        </div>
+
+        <button class="btn primary lc-btn" type="submit">Login</button>
+
+        <div class="lc-or"><span>or</span></div>
+
+        <button class="btn ghost lc-btn" type="button" id="guestBtn">Continue as Guest</button>
+
+        <div class="lc-foot">
+          <span>New user?</span>
+          <a class="lc-link" href="#" onclick="alert('Demo: you can add signup later');return false;">Create account</a>
+        </div>
+      </form>
+    </section>
+  </div>
+</main>
+
+<script src="app.js"></script>
+<script>
+  // Password show/hide
+  const pass = document.getElementById("loginPass");
+  document.getElementById("togglePass").addEventListener("click", ()=>{
+    pass.type = (pass.type === "password") ? "text" : "password";
+  });
+
+  // Demo login (localStorage)
+  document.getElementById("loginForm").addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const user = document.getElementById("loginUser").value.trim();
+    const remember = document.getElementById("rememberMe").checked;
+
+    const payload = { user, at: Date.now() };
+    localStorage.setItem("ps_user", JSON.stringify(payload));
+    if(remember) localStorage.setItem("ps_remember", "1"); else localStorage.removeItem("ps_remember");
+
+    alert("Login successful (demo) ✅");
+    location.href = "book-pandit.html";
+  });
+
+  document.getElementById("guestBtn").addEventListener("click", ()=>{
+    localStorage.removeItem("ps_user");
+    alert("Continuing as Guest ✅");
+    location.href = "index.html";
+  });
+</script>
+</body>
+</html>

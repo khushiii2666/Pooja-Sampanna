@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Poojas - Pooja Sampanna</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="logo">PS</div>
+      <div class="brand-title">
+        <b>Pooja Sampanna</b>
+        <small>Pooja • Samagri • Booking</small>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a class="nav-link" data-nav href="index.html">Home</a>
+      <a class="nav-link" data-nav href="poojas.html">Poojas</a>
+      <a class="nav-link" data-nav href="samagri.html">Samagri</a>
+      <a class="nav-link" data-nav href="book-pandit.html">Book Pandit</a>
+    </nav>
+
+    <div class="nav-right">
+      <div class="search">
+        🔍 <input id="searchInput" placeholder="Search pooja..." />
+      </div>
+      <a class="cart-pill" href="samagri.html">
+        🛒 Cart <span class="cart-badge" id="cartCount">0</span>
+      </a>
+      <a class="btn ghost" href="login.html">Login</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="pop-wrap">
+    <div class="pop-head">
+      <div>
+        <div class="pop-title">All Poojas</div>
+        <div class="pop-sub" id="countText">Showing poojas</div>
+      </div>
+      <div class="pop-actions">
+        <a class="btn ghost" href="samagri.html">Open Samagri</a>
+        <a class="btn primary" href="book-pandit.html">Book Pandit</a>
+      </div>
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+    <div class="grid3" id="poojaGrid"></div>
+  </section>
+
+  <div class="footer">Tip: Use search to filter poojas like in the video.</div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

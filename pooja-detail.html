@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pooja Detail - Pooja Sampanna</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="logo">PS</div>
+      <div class="brand-title">
+        <b>Pooja Sampanna</b>
+        <small>Pooja • Samagri • Booking</small>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a class="nav-link" data-nav href="index.html">Home</a>
+      <a class="nav-link" data-nav href="poojas.html">Poojas</a>
+      <a class="nav-link" data-nav href="samagri.html">Samagri</a>
+      <a class="nav-link" data-nav href="book-pandit.html">Book Pandit</a>
+    </nav>
+
+    <div class="nav-right">
+      <a class="cart-pill" href="samagri.html">
+        🛒 Cart <span class="cart-badge" id="cartCount">0</span>
+      </a>
+      <a class="btn ghost" href="login.html">Login</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="pop-wrap">
+    <div class="pop-head">
+      <div>
+        <div class="pop-title" id="pdTitle">Pooja Detail</div>
+        <div class="pop-sub" id="pdMeta">Step-by-step guidance + audio</div>
+        <div class="panel" style="margin-top:14px">
+   <div class="row" style="justify-content:space-between">
+     <div>
+      <b>🎵 Background Mantra</b>
+      <div style="color:var(--muted);font-size:13px;margin-top:4px">Soft looping sound for focus (optional)</div>
+     </div>
+    <div class="row">
+      <button class="btn ghost" id="bgPlay">▶ Play</button>
+      <button class="btn ghost" id="bgPause">⏸ Pause</button>
+      <input id="bgVol" type="range" min="0" max="1" step="0.05" value="0.25" style="width:140px">
+    </div>
+   </div>
+
+  <audio id="bgAudio" loop>
+    <source src="./audio/mantra.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+      </div>
+      <div class="pop-actions">
+        <a class="btn ghost" id="pdSamagriBtn" href="samagri.html">Samagri</a>
+        <a class="btn primary" id="pdBookBtn" href="book-pandit.html">Book Pandit</a>
+      </div>
+    </div>
+
+    <div class="layout2">
+      <!-- LEFT: Steps -->
+      <div class="panel">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+          <div class="badge">🔊 Audio Guidance (Text-to-Speech)</div>
+          <div style="color:var(--muted);font-size:13px" id="stepCounter">Step 1/1</div>
+        </div>
+     <div class="card" style="margin-top:12px" id="mantraBox">
+         <div style="font-weight:1000">🕉 Mantra</div>
+         <div style="margin-top:6px" id="mantraHi"></div>
+         <div style="margin-top:6px;color:var(--muted)" id="mantraEn"></div>
+         <div style="margin-top:8px;color:var(--muted);font-size:13px" id="mantraMeaning"></div>
+         <div style="margin-top:8px;color:var(--muted);font-size:13px" id="mantraChant"></div>
+         <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn ghost" id="playMantra">🔊 Play Mantra</button>
+         </div>
+     </div>
+
+
+        <div style="margin-top:12px;border:1px solid var(--border);border-radius:18px;padding:14px;background:#fff">
+          <div style="font-weight:1000;font-size:16px" id="stepTitle">Step Title</div>
+          <div style="color:var(--muted);margin-top:6px;line-height:1.75;font-size:14px" id="stepText">
+            Step details...
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+         <button class="btn ghost" id="prevStep">⬅ Prev</button>
+         <button class="btn ghost" id="nextStep">Next ➡</button>
+
+         <button class="btn primary" id="speakStep">▶ Play Audio</button>
+         <button class="btn ghost" id="pauseSpeech">⏸ Pause</button>
+         <button class="btn ghost" id="stopSpeech">⏹ Stop</button>
+
+         <button class="btn ghost" id="toggleLang">🌐 Hindi</button>
+        </div>
+
+        <div style="margin-top:14px;color:var(--muted);font-size:13px;line-height:1.7">
+          ✅ Tip: Audio works best in Chrome. If voice doesn’t start, click “Play Audio” once.
+        </div>
+      </div>
+
+      <!-- RIGHT: All steps list -->
+      <div class="panel sticky">
+        <h3 style="font-weight:1000;margin-bottom:10px">All Steps</h3>
+        <div id="allSteps" class="list"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">Audio Guidance uses browser SpeechSynthesis (no external files needed).</div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
